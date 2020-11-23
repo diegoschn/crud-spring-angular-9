@@ -29,12 +29,13 @@ public class ClienteService {
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public void remover(Integer id){
-        try {
-            clienteRepository.deleteById(id);
-        }catch (EmptyResultDataAccessException e){
-            throw new EntidadeNaoEncontradaException(
-                    String.format("Não existe cadastro de cliente com código %d", id));
-        }
+    public void remover(Integer id) {
+        clienteRepository
+                .findById(id)
+                .map( cliente -> {
+                    clienteRepository.delete(cliente);
+                    return Void.TYPE;
+                })
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }
