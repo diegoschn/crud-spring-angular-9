@@ -41,7 +41,7 @@ public class ClienteController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> atualizar(@PathVariable Integer id,
-                         @RequestBody Cliente cliente){
+                         @RequestBody @Valid  Cliente cliente){
         Optional<Cliente> clienteEncontrado = Optional.ofNullable(clienteService.buscarPorId(id));
         if(clienteEncontrado.isPresent()){
             cliente.setId(id);

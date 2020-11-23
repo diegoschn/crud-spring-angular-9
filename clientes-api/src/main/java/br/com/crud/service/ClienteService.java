@@ -26,7 +26,7 @@ public class ClienteService {
     public Cliente buscarPorId(Integer id){
         return clienteRepository
                 .findById(id)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
     }
 
     public void remover(Integer id) {
@@ -36,6 +36,6 @@ public class ClienteService {
                     clienteRepository.delete(cliente);
                     return Void.TYPE;
                 })
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
     }
 }
