@@ -27,7 +27,7 @@ public class Cliente {
     private String cpf;
 
     @Column(name = "data_cadastro", updatable = false)
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime dataCadastro;
 
     @PrePersist
