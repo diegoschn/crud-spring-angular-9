@@ -11,6 +11,7 @@ import { ClientesModule } from './clientes/clientes.module';
 import { ClientesService } from './clientes.service';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { LayoutComponent } from './layout/layout.component';
     ClientesModule
   ],
   providers: [
-    ClientesService
+    ClientesService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
