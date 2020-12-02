@@ -1,5 +1,7 @@
 package br.com.crud.config;
 
+import br.com.crud.service.config.UsuarioLoadService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,15 +16,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private UsuarioLoadService usuarioService;
+
     //AuthenticationManagerBuilder-> Serve para construir um AuthenticationManager, ou seja
     //essa classe vai gerenciar a autenticação na aplicação
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .inMemoryAuthentication()
-                .withUser("fulano")
-                .password("123")
-                .roles("USER");
+            .userDetailsService(usuarioService)
+            .passwordEncoder(passwordEncoder());
     }
 
     //Essa classe AuthenticationManager quem vai gerenciar a autenticação na aplicação
