@@ -24,7 +24,15 @@ errors : string[];
   }
 
   onSubmit(){
-    this.router.navigate(['/home']);
+    this.authService
+      .tentarLogar(this.username, this.password)
+      .subscribe(response => {
+        console.log(response);
+        this.router.navigate(['/home']);
+        errorResponse => {
+          this.errors = ['Usuário e/ou senha incorreta']
+        }
+      })
   }
 
   preparaCadastrar(event){
@@ -43,6 +51,10 @@ errors : string[];
       .salvar(usuario)
       .subscribe(response => {
           this.mensagemSucesso = "Cadastro realizado com sucesso! Efetue o login.";
+          this.cadastrando = false;
+          this.username = '';
+          this.password = '';
+          this.errors = [];
       }, errorResponse => {
         this.mensagemSucesso = null;
         this.errors = errorResponse.error.errors;
